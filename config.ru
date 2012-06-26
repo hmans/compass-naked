@@ -10,7 +10,12 @@ require 'compass'
 # Compass.configure_sass_plugin!
 #
 # @hmans' solution (works, but is a bit of a hack):
-Sass::Engine::DEFAULT_OPTIONS[:load_paths] << Compass::Frameworks["compass"].stylesheets_directory
+# Sass::Engine::DEFAULT_OPTIONS[:load_paths] << Compass::Frameworks["compass"].stylesheets_directory
+#
+# Using Compass.configuration.to_sass_engine_options:
+Compass.configuration.to_sass_engine_options[:load_paths].each do |p|
+  Sass::Engine::DEFAULT_OPTIONS[:load_paths] << p
+end
 
 class SassRenderer
   def call(env)
